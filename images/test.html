@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agro Wali Chat</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dark">
+
+  <div class="chat-wrapper">
+    <header class="chat-header">
+      <div class="bot-avatar"></div>
+      <div class="bot-info">
+        <h3>Agro Wali</h3>
+        <span class="status">Online</span>
+      </div>
+    </header>
+
+    <div id="chat-window" class="chat-window">
+      <!-- Message bubbles will be appended here -->
+    </div>
+
+    <div class="chat-input-area">
+      <input type="file" id="imageUpload" accept="image/*" style="display:none;" />
+      <button id="btnImage" class="icon-btn">📷</button>
+      <input type="text" id="userInput" placeholder="Type a message..." />
+      <button id="btnVoice" class="icon-btn">🎙️</button>
+      <button id="btnSend" class="icon-btn send-btn">➤</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

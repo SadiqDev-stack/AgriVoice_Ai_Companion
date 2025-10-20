@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Model Setup</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: black;
+      color: white;
+    }
+    .card {
+      max-width: 500px;
+      padding: 2rem;
+      border-radius: 12px;
+      background: black;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .status {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: #4b5563;
+    }
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid #e5e7eb;
+      border-top: 3px solid #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Initializing AI Features</h1>
+    <div class="spinner"></div>
+    <p class="status" id="status">Checking for built-in AI support...</p>
+  </div>
+
+  <script>
+  
+  const spinner = document.querySelector(".spinner")
+  
+  const checkAi = async () => {
+    const statusEl = document.getElementById('status');
+    spinner.style.display = "none"
+    
+    // check prompt ai 
+    if (!window.LanguageModel) return statusEl.textContent = "Prompt Ai Not Supported In This Browser"
+    if(!window.Translator) return statusEl.textContent = "Translator Ai Not Available"
+    if(!window.LanguageDetector) return statusEl.textContent = "Language Detector Ai Not Available"
+    
+    spinner.style.display = "block"
+   statusEl.textContent = "Ai Models Available, Redirecting..."
+   setTimeout(() => location.href = "ai.html", 1000)
+  }
+  
+  
+  onload = () => {
+    setTimeout(checkAi, 1000)
+  }
+  
+    
+  </script>
+</body>
+</html>
+

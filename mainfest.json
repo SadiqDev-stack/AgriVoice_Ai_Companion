@@ -1,0 +1,22 @@
+{
+  "name": "AgriVoice AI",
+  "short_name": "AgriVoice",
+  "description": "Your all-in-one agricultural AI assistant — chat, speak, and get instant farming help even offline.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#22c55e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
