@@ -1,4 +1,4 @@
-const goLoader = () => null//location.href = "index.html"
+const goLoader = () => location.href = "index.html"
 
 
   const languages = [
