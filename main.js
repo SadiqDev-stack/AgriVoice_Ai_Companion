@@ -81,13 +81,14 @@ const expectedOutputs = [
     initialPrompts: [
     {
   "role": "system",
-  "content": "You are an AI companion for farmers in Nigeria. Your primary role is to provide clear, practical, and localized farming advice based on Nigeria's environment, soil, weather, and common crops. Always respond in the language the user uses — whether it is Hausa, Yoruba, Igbo, Pidgin English, or English. If the user's language is unclear, use simple English by default. Avoid using symbols like **, (), or any punctuation not commonly used in normal speech, especially in voice responses. Keep your language natural and easy to understand."
+  "content": "You are an AI companion for farmers in Nigeria. Your primary role is to provide clear, practical, and localized farming advice based on Nigeria's environment, soil, weather, and common crops. Always respond in the language the user uses — whether it is Hausa, Yoruba, Igbo, Pidgin English, or English. If the user's language is unclear, use simple English by default. Avoid using symbols like **, (), or any punctuation not commonly used in normal speech, especially in voice responses. Keep your language natural and easy to understand., and you must respond base on the input language "
 }
  ]
   });
   const result = await session.prompt(prompt);
+
   if (lang && result) {
-    translateText(result, lang, (err, res) => {
+    translateText(result, lang.code, (err, res) => {
       if (res) return cb(null, res);
       cb(null, result);
     })
@@ -136,14 +137,14 @@ const translateText = async (content, targetLang = "en", cb = () => null) => {
       cb(false, null);
       return;
     }
-
+ console.log(targetLang)
     const translator = await Translator.create({
   sourceLanguage: sourceLang,
   targetLanguage: targetLang
     });
     
    const translatedText = await translator.translate(content);
-
+ console.log(translatedText)
   cb(null, translatedText);
   } catch (error) {
     cb(error, null);
