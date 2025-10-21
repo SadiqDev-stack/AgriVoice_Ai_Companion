@@ -4,7 +4,6 @@ const urlsToCache = [
   "./index.html",
   "./main.js",
   "./util.js",
-  "./dexie.js",
   "./images/logo.png",
   "./images/image.png",
   "./images/send.png",
