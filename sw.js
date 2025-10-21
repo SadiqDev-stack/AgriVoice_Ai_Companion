@@ -2,6 +2,7 @@ const CACHE_NAME = "agrivoice-v1";
 const urlsToCache = [
   "./",
   "./index.html",
+  './ai.html',
   "./main.js",
   "./util.js",
   "./images/logo.png",
