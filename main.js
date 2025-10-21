@@ -74,19 +74,16 @@ const expectedOutputs = [
   if (!window.LanguageModel) return goLoader()
   
   const availability = await LanguageModel.availability();
-  if (availability !== "available" || availability !== "downloadable") return goLoader()
+
+ if (availability !== "available") return goLoader();
+
   const session = await LanguageModel.create({
     initialPrompts: [
-      { role: 'system', content: `You are an AI companion for farmers in Nigeria. Your duty is to answer questions in the local language of the user (Hausa, Yoruba, Igbo, or Pidgin English). You provide simple, practical, and localized farming advice based on Nigeria’s environment, soil, weather, and crops,m, let your default language be english and avoid using ** () and sings not common for normal response expecially voice.` },
-      { role: 'user', content: 'Ta yaya zan iya shuka masara da kyau?' },
-      { role: 'assistant', content: 'Ka shuka masara lokacin damina ta fara sosai, ka yi amfani da iri mai kyau kamar SAMMAZ 15, ka tabbatar ƙasa tana da danshi sosai, sannan ka saka taki kamar NPK bayan tsiro.' },
-      { role: 'user', content: 'Bawo ni mo ṣe le tọju ilẹ mi fun ogbin to dara?' },
-      { role: 'assistant', content: 'Ma ṣe fi ilẹ rẹ silẹ laisi irugbin. Lo egbin oko bi irugbin ewa tabi oka lati mu ilẹ lagbara. Tun maa fi eso ati eroja adayeba sinu ilẹ lati fi kun adun rẹ.' },
-      { role: 'user', content: 'Kedu ka m ga-esi gbo tomato nke ọma?' },
-      { role: 'assistant', content: 'Tomato chọrọ anyanwụ zuru oke na ala dị mma nke na-adaba mmiri. Gbaa mbọ ka ị ghara ịkụ ya n’ebe mmiri na-anọ ogologo oge. Tinye mkpụrụ osisi dị ka organic manure iji mee ka ala sie ike.' },
-      { role: 'user', content: 'Rain never come early this year, wetin I go plant now?' },
-      { role: 'assistant', content: 'Since rain never start, you fit start with crops wey no need too much water like groundnut, beans, or millet. When rain come steady, you fit move to maize or rice.' }
-    ]
+    {
+  "role": "system",
+  "content": "You are an AI companion for farmers in Nigeria. Your primary role is to provide clear, practical, and localized farming advice based on Nigeria's environment, soil, weather, and common crops. Always respond in the language the user uses — whether it is Hausa, Yoruba, Igbo, Pidgin English, or English. If the user's language is unclear, use simple English by default. Avoid using symbols like **, (), or any punctuation not commonly used in normal speech, especially in voice responses. Keep your language natural and easy to understand."
+}
+ ]
   });
   const result = await session.prompt(prompt);
   if (lang && result) {
@@ -111,7 +108,7 @@ const expectedOutputs = [
   try {
    if(!window.LanguageDetector) return goLoader()
     const avail = await LanguageDetector.availability();
-    if(avail !== 'available' || avail !== "downloadable") throw new Error("Language Detector Not Available")
+    if(avail !== 'available') throw new Error("Language Detector Not Available")
    const detector = await LanguageDetector.create()
    const detection = await detector.detect(text)
    
@@ -495,7 +492,7 @@ let messageHistory = getData("messageHistory") || [];
       
        Translate.value = `${lang.code} ${lang.name}`
   
-       
+       console.log(lang)
    
        
   
@@ -522,13 +519,13 @@ let messageHistory = getData("messageHistory") || [];
        }
   
        onChange(Translate, v => {
-  
+      
          if(v == "translating") return Translate.value = `${lang.code} ${lang.name}`;
   
            
   
          const [code, name] = v.split(" ");
-  
+ 
          if(code == lang.code || v == "translating") return 
   
          Actions.classList.add("freezed");
@@ -540,19 +537,19 @@ let messageHistory = getData("messageHistory") || [];
          
   
          const update = (res, err) => {
-  
+   
            content = !res ? content : res;
   
            Content.textContent = content;
   
            Actions.classList.remove("freezed");
   
-           Translate.value = `${lang.code} ${lang.name}`;
+            Translate.value = res ? `${code} ${name}` : `${lang.code} ${lang.name}`
   
            
   
            if(!res) return // stop saving no translation found
-  
+            
            lang = { name, code }
   
            translated[code] = res;
