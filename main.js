@@ -1,4 +1,4 @@
-const goLoader = () => location.href = "index.html"
+const goLoader = () => console.log('called');// location.href = "index.html"
 
 
   const languages = [
@@ -60,7 +60,7 @@ const expectedOutputs = [
       multimodal: true
     });
     
-    if (availability !== 'available' || availability !== 'donwloadable') return goLoader()
+  if (availability !== 'available' && availability !== 'downloadable') return goLoader();
 
     multimodalSession = await LanguageModel.create({
       expectedInputs,
@@ -74,8 +74,9 @@ const expectedOutputs = [
   if (!window.LanguageModel) return goLoader()
   
   const availability = await LanguageModel.availability();
-
- if (availability !== "available") return goLoader();
+console.log(availability)
+ if (availability !== 'available' && availability !== 'downloadable')
+  return goLoader();
 
   const session = await LanguageModel.create({
     initialPrompts: [
